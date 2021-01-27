@@ -1,7 +1,7 @@
 
 surface.CreateFont ( "HudFont", {
 	font = "Arial",
-	size = 25,
+	size = ScrW() / 2, ScrH() / 2
 	weight = 500
 })
 		
@@ -13,12 +13,12 @@ hook.Add( "HUDPaint", "Hud", function()
 	local boxW = ScrW() * .1
 	local boxH = ScrH() * .02
 		surface.SetDrawColor(0,0,0,100)
-		surface.DrawRect(ScrW() / 2 - boxW / 2,ScrH() - boxH * 1.1, boxW, boxH)
+		surface.DrawRect(ScrW() / 2 - boxW / 2,ScrH() - boxH * 1, boxW, boxH)
 		surface.SetDrawColor(255,0,0,255)
-		surface.DrawRect(ScrW() / 2 - boxW / 2,ScrH() - boxH * 1.1, boxW * (hp / maxhp), boxH)
+		surface.DrawRect(ScrW() / 2 - boxW / 2,ScrH() - boxH * 1, boxW * (hp / maxhp), boxH)
 			surface.SetFont( "HudFont" )
 			surface.SetTextColor( 255, 255, 255, 200 )
-			surface.SetTextPos( ScrW() / 1.99 - boxW / 2,ScrH() - boxH * 1.2, boxW, boxH )
+			surface.SetTextPos( ScrW() / 1.99 - boxW / 2,ScrH() - boxH * 1, boxW, boxH )
 			surface.DrawText( hp )
 
 
@@ -32,14 +32,14 @@ hook.Add( "HUDPaint", "Hud", function()
 		surface.DrawRect(ScrW() / 2 - boxW / 2,ScrH() - boxH * 2.5, boxW * (arm / maxarm), boxH)	
 			surface.SetFont( "HudFont" )
 			surface.SetTextColor( 255, 255, 255, 200 )
-			surface.SetTextPos( ScrW() / 1.99 - boxW / 2,ScrH() - boxH * 2.535, boxW, boxH )
+			surface.SetTextPos( ScrW() / 1.99 - boxW / 2,ScrH() - boxH * 2.5, boxW, boxH )
 			surface.DrawText( arm )
 			
 
 		surface.SetDrawColor(0,0,0,100)
-		surface.DrawRect(ScrW() / 2 - boxW / 2,ScrH() - boxH * 3.9, boxW, boxH)
+		surface.DrawRect(ScrW() / 2 - boxW / 2,ScrH() - boxH * 4, boxW, boxH)
 		surface.SetDrawColor(205,205,0,205)
-		surface.DrawRect(ScrW() / 2 - boxW / 2,ScrH() - boxH * 3.9, boxW, boxH)	
+		surface.DrawRect(ScrW() / 2 - boxW / 2,ScrH() - boxH * 4, boxW, boxH)	
 			surface.SetFont( "HudFont" )
 			surface.SetTextColor( 255, 255, 255, 200 )
 			surface.SetTextPos( ScrW() / 1.99 - boxW / 2,ScrH() - boxH * 4, boxW, boxH )

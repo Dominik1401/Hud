@@ -1,11 +1,33 @@
 
 surface.CreateFont ( "HudFont", {
 	font = "Arial",
-	size = ScrW() / 2, ScrH() / 2
+	size = ScrW() *.01, ScrH() * .02,
 	weight = 500
 })
+
+surface.CreateFont ( "Ammo", {
+	font = "Arial",
+	size = ScrW() *.03, ScrH() * .04,
+	weight = 500,
+	antialias = true,
+	shadow = true,
+	outline = true
+})
+
+surface.CreateFont ( "Weapon", {
+	font = "Arial",
+	size = ScrW() *.02, ScrH() * .03,
+	weight = 500,
+	antialias = true,
+	shadow = true,
+	outline = true
+})
+
+
 		
 hook.Add( "HUDPaint", "Hud", function()
+
+	-- health --
 
 	local ply = LocalPlayer()
 	local hp = ply:Health()
@@ -21,6 +43,7 @@ hook.Add( "HUDPaint", "Hud", function()
 			surface.SetTextPos( ScrW() / 1.99 - boxW / 2,ScrH() - boxH * 1, boxW, boxH )
 			surface.DrawText( hp )
 
+	-- armor --
 
 	local arm = ply:Armor()
 	local maxarm = ply:GetMaxArmor()
@@ -34,8 +57,11 @@ hook.Add( "HUDPaint", "Hud", function()
 			surface.SetTextColor( 255, 255, 255, 200 )
 			surface.SetTextPos( ScrW() / 1.99 - boxW / 2,ScrH() - boxH * 2.5, boxW, boxH )
 			surface.DrawText( arm )
-			
 
+		-- stamina --
+			
+	local stamina = ply:Health()
+	local maxstamina = ply:GetMaxHealth()
 		surface.SetDrawColor(0,0,0,100)
 		surface.DrawRect(ScrW() / 2 - boxW / 2,ScrH() - boxH * 4, boxW, boxH)
 		surface.SetDrawColor(205,205,0,205)
@@ -45,15 +71,27 @@ hook.Add( "HUDPaint", "Hud", function()
 			surface.SetTextPos( ScrW() / 1.99 - boxW / 2,ScrH() - boxH * 4, boxW, boxH )
 			surface.DrawText( "Stamina" )
 
-end)
+		-- ammo --
 
-		--Ammo--
-
-
-	
-
-
-
+	local WepVar = ply:GetActiveWeapon()
+	local ClipVar = ply:GetActiveWeapon():Clip1() 
+	local AmmoVar = ply:GetAmmoCount( 1 )
+	local NameVar = ply:GetActiveWeapon():GetPrintName()
+	local boxW = ScrW() * .2
+	local boxH = ScrH() * .08
+		if ClipVar == -1 then return end
+			surface.SetDrawColor(0,0,0,100)
+			surface.DrawRect(ScrW() / 1 - boxW / 1,ScrH() - boxH * 6.75, boxW, boxH)
+				surface.SetFont( "Ammo" )
+				surface.SetTextColor( 255, 255, 255, 200 )
+				surface.SetTextPos( ScrW() / .985 - boxW / 1,ScrH() - boxH * 6.535, boxW, boxH)
+				surface.DrawText( ClipVar )
+				surface.SetTextPos( ScrW() / .905 - boxW / 1,ScrH() - boxH * 6.535, boxW, boxH)
+				surface.DrawText( AmmoVar )
+				surface.SetFont( "Weapon" )
+				surface.SetTextPos( ScrW() / .985 - boxW / 1,ScrH() - boxH * 5.8, boxW, boxH)
+				surface.DrawText( NameVar )
+end)		
 		--Hide Default Hud--
 
 local hide = {

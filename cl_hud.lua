@@ -74,7 +74,6 @@ hook.Add( "HUDPaint", "Hud", function()
 			surface.DrawText( "Stamina" )
 
 		-- ammo --
-
 	local WepVar = ply:GetActiveWeapon()
 	local ClipVar = ply:GetActiveWeapon():Clip1() 
 	local AmmoVar = ply:GetAmmoCount( ply:GetActiveWeapon():GetPrimaryAmmoType() )

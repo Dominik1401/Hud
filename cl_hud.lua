@@ -24,6 +24,8 @@ surface.CreateFont ( "Weapon", {
 })
 
 
+
+
 		
 hook.Add( "HUDPaint", "Hud", function()
 
@@ -75,7 +77,7 @@ hook.Add( "HUDPaint", "Hud", function()
 
 	local WepVar = ply:GetActiveWeapon()
 	local ClipVar = ply:GetActiveWeapon():Clip1() 
-	local AmmoVar = ply:GetAmmoCount( 1 )
+	local AmmoVar = ply:GetAmmoCount( ply:GetActiveWeapon():GetPrimaryAmmoType() )
 	local NameVar = ply:GetActiveWeapon():GetPrintName()
 	local boxW = ScrW() * .2
 	local boxH = ScrH() * .08
@@ -107,3 +109,13 @@ hook.Add( "HUDShouldDraw", "HideHUD", function( name )
 		return false
 	end
 end )
+
+function GetAmmoForCurrentWeapon( ply )
+	if ( !IsValid( ply ) ) then return -1 end
+
+	local wep = ply:GetActiveWeapon()
+	if ( !IsValid( wep ) ) then return -1 end
+ 
+	return ply:GetAmmoCount( wep:GetPrimaryAmmoType() )
+end
+

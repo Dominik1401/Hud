@@ -29,7 +29,7 @@ surface.CreateFont ( "Weapon", {
 		
 hook.Add( "HUDPaint", "Hud", function()
 
-	-- health --
+		-- health --
 
 	local ply = LocalPlayer()
 	local hp = ply:Health()
@@ -45,7 +45,7 @@ hook.Add( "HUDPaint", "Hud", function()
 			surface.SetTextPos( ScrW() / 1.99 - boxW / 2,ScrH() - boxH * 1, boxW, boxH )
 			surface.DrawText( hp )
 
-	-- armor --
+		-- armor --
 
 	local arm = ply:Armor()
 	local maxarm = ply:GetMaxArmor()
@@ -74,6 +74,7 @@ hook.Add( "HUDPaint", "Hud", function()
 			surface.DrawText( "Stamina" )
 
 		-- ammo --
+		
 	local WepVar = ply:GetActiveWeapon()
 	local ClipVar = ply:GetActiveWeapon():Clip1() 
 	local AmmoVar = ply:GetAmmoCount( ply:GetActiveWeapon():GetPrimaryAmmoType() )
@@ -92,7 +93,8 @@ hook.Add( "HUDPaint", "Hud", function()
 				surface.SetFont( "Weapon" )
 				surface.SetTextPos( ScrW() / .985 - boxW / 1,ScrH() - boxH * 5.8, boxW, boxH)
 				surface.DrawText( NameVar )
-end)		
+end)
+
 		--Hide Default Hud--
 
 local hide = {

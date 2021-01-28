@@ -100,6 +100,7 @@ hook.Add( "HUDPaint", "Hud", function()
 
 	local NameVar = ply:GetName()
 	local Clone_idVar = ply:GetClassID()
+	local UserGroupVar = ply:GetUserGroup()
 	local boxW = ScrW() * .2
 	local boxH = ScrH() * .08
 
@@ -108,11 +109,14 @@ hook.Add( "HUDPaint", "Hud", function()
 
 	surface.SetFont( "Name" )
 	surface.SetTextColor( 255, 255, 255, 200 )
-	surface.SetTextPos( ScrW() / .99 - boxW / 1,ScrH() - boxH * 5.7, boxW, boxH)
+	surface.SetTextPos(ScrW() / .99 - boxW / 1,ScrH() - boxH * 5.7, boxW, boxH)
 	surface.DrawText( NameVar )
 
-	surface.SetTextPos( ScrW() / .9 - boxW / 1,ScrH() - boxH * 5.7, boxW, boxH)
+	surface.SetTextPos(ScrW() / .9 - boxW / 1,ScrH() - boxH * 5.7, boxW, boxH)
 	surface.DrawText( Clone_idVar )
+
+	surface.SetTextPos(ScrW() / .99 - boxW / 1,ScrH() - boxH * 6.4, boxW, boxH)
+	surface.DrawText( UserGroupVar )
 
 		-- ammo --
 		

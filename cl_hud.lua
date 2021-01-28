@@ -29,23 +29,25 @@ surface.CreateFont ( "Weapon", {
 		
 hook.Add( "HUDPaint", "Hud", function()
 
-		-- health --
+	-- health --
 
 	local ply = LocalPlayer()
 	local hp = ply:Health()
 	local maxhp = ply:GetMaxHealth()
 	local boxW = ScrW() * .1
 	local boxH = ScrH() * .02
-		surface.SetDrawColor(0,0,0,100)
-		surface.DrawRect(ScrW() / 2 - boxW / 2,ScrH() - boxH * 1, boxW, boxH)
-		surface.SetDrawColor(255,0,0,255)
-		surface.DrawRect(ScrW() / 2 - boxW / 2,ScrH() - boxH * 1, boxW * (hp / maxhp), boxH)
-			surface.SetFont( "HudFont" )
-			surface.SetTextColor( 255, 255, 255, 200 )
-			surface.SetTextPos( ScrW() / 1.99 - boxW / 2,ScrH() - boxH * 1, boxW, boxH )
-			surface.DrawText( hp )
+		if ply:Alive() == -1 then return end
+		if ply:InVehicle() then return end
+			surface.SetDrawColor(0,0,0,100)
+			surface.DrawRect(ScrW() / 2 - boxW / 2,ScrH() - boxH * 1, boxW, boxH)
+			surface.SetDrawColor(255,0,0,255)
+			surface.DrawRect(ScrW() / 2 - boxW / 2,ScrH() - boxH * 1, boxW * (hp / maxhp), boxH)
+				surface.SetFont( "HudFont" )
+				surface.SetTextColor( 255, 255, 255, 200 )
+				surface.SetTextPos( ScrW() / 1.99 - boxW / 2,ScrH() - boxH * 1, boxW, boxH )
+				surface.DrawText( hp )
 
-		-- armor --
+	-- armor --
 
 	local arm = ply:Armor()
 	local maxarm = ply:GetMaxArmor()
@@ -74,7 +76,6 @@ hook.Add( "HUDPaint", "Hud", function()
 			surface.DrawText( "Stamina" )
 
 		-- ammo --
-		
 	local WepVar = ply:GetActiveWeapon()
 	local ClipVar = ply:GetActiveWeapon():Clip1() 
 	local AmmoVar = ply:GetAmmoCount( ply:GetActiveWeapon():GetPrimaryAmmoType() )
@@ -83,18 +84,23 @@ hook.Add( "HUDPaint", "Hud", function()
 	local boxH = ScrH() * .08
 		if ClipVar == -1 then return end
 			surface.SetDrawColor(0,0,0,100)
-			surface.DrawRect(ScrW() / 1 - boxW / 1,ScrH() - boxH * 6.75, boxW, boxH)
+			surface.DrawRect(ScrW() / 1 - boxW / 1,ScrH() - boxH * 1, boxW, boxH)
 				surface.SetFont( "Ammo" )
 				surface.SetTextColor( 255, 255, 255, 200 )
-				surface.SetTextPos( ScrW() / .985 - boxW / 1,ScrH() - boxH * 6.535, boxW, boxH)
+				surface.SetTextPos( ScrW() / .985 - boxW / 1,ScrH() - boxH * .95, boxW, boxH)
 				surface.DrawText( ClipVar )
-				surface.SetTextPos( ScrW() / .905 - boxW / 1,ScrH() - boxH * 6.535, boxW, boxH)
+				surface.SetTextPos( ScrW() / .905 - boxW / 1,ScrH() - boxH * .95, boxW, boxH)
 				surface.DrawText( AmmoVar )
 				surface.SetFont( "Weapon" )
-				surface.SetTextPos( ScrW() / .985 - boxW / 1,ScrH() - boxH * 5.8, boxW, boxH)
+				surface.SetTextPos( ScrW() / .985 - boxW / 1,ScrH() - boxH * 1.4, boxW, boxH)
 				surface.DrawText( NameVar )
-end)
+				
+		-- CharInfo --
+		
 
+	local NameVar = ply:GetName()
+
+end)		
 		--Hide Default Hud--
 
 local hide = {
@@ -110,13 +116,4 @@ hook.Add( "HUDShouldDraw", "HideHUD", function( name )
 		return false
 	end
 end )
-
-function GetAmmoForCurrentWeapon( ply )
-	if ( !IsValid( ply ) ) then return -1 end
-
-	local wep = ply:GetActiveWeapon()
-	if ( !IsValid( wep ) ) then return -1 end
- 
-	return ply:GetAmmoCount( wep:GetPrimaryAmmoType() )
-end
 
